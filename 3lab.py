@@ -15,7 +15,8 @@ from scipy.spatial import ConvexHull
 #isaoko tevas buvo is afrikos :OOO
 
 # Read the CSV file into a DataFrame
-csv_file_path = 'C:/Users/Lenovo/Desktop/3lab masininis/Wholesale customers data.csv'
+#csv_file_path = 'C:/Users/Lenovo/Desktop/3lab masininis/Wholesale customers data.csv'
+csv_file_path = 'Wholesale customers data.csv'
 df = pd.read_csv(csv_file_path)
 
 # Drop the 'Region' column
@@ -77,49 +78,49 @@ plt.show()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-# # Elbow Method
-# # Fit k-means clustering models with different values of k
-# inertia = []
-# for k in range(1, 11):
-#     kmeans = KMeans(n_clusters=k, random_state=42)
-#     kmeans.fit(X[['Fresh', 'Grocery']])
-#     inertia.append(kmeans.inertia_)
-# # Plot the elbow curve
-# plt.plot(range(1, 11), inertia, marker='o')
-# plt.xlabel('Number of Clusters (k)')
-# plt.ylabel('Sum of Squared Distances')
-# plt.title('Elbow Method')
-# plt.show()
+# Elbow Method
+# Fit k-means clustering models with different values of k
+inertia = []
+for k in range(1, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    kmeans.fit(X[['Fresh', 'Grocery']])
+    inertia.append(kmeans.inertia_)
+# Plot the elbow curve
+plt.plot(range(1, 11), inertia, marker='o')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Sum of Squared Distances')
+plt.title('Elbow Method')
+plt.show()
 
 
-# # Mean Silhouette Method
-# silhouette_scores = []
-# for k in range(2, 11):
-#     kmeans = KMeans(n_clusters=k, random_state=42)
-#     cluster_labels = kmeans.fit_predict(X[['Fresh', 'Grocery']])
-#     silhouette_avg = silhouette_score(X[['Fresh', 'Grocery']], cluster_labels)
-#     silhouette_scores.append(silhouette_avg)
-# # Plot silhouette scores
-# plt.plot(range(2, 11), silhouette_scores, marker='o')
-# plt.xlabel('Number of Clusters (k)')
-# plt.ylabel('Silhouette Score')
-# plt.title('Mean Silhouette Method')
-# plt.show()
+# Mean Silhouette Method
+silhouette_scores = []
+for k in range(2, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    cluster_labels = kmeans.fit_predict(X[['Fresh', 'Grocery']])
+    silhouette_avg = silhouette_score(X[['Fresh', 'Grocery']], cluster_labels)
+    silhouette_scores.append(silhouette_avg)
+# Plot silhouette scores
+plt.plot(range(2, 11), silhouette_scores, marker='o')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Silhouette Score')
+plt.title('Mean Silhouette Method')
+plt.show()
 
 
-# # Davies-Bouldin Index
-# davies_bouldin_scores = []
-# for k in range(2, 11):
-#     kmeans = KMeans(n_clusters=k, random_state=42)
-#     cluster_labels = kmeans.fit_predict(X[['Fresh', 'Grocery']])
-#     davies_bouldin = davies_bouldin_score(X[['Fresh', 'Grocery']], cluster_labels)
-#     davies_bouldin_scores.append(davies_bouldin)
-# # Plot Davies-Bouldin scores
-# plt.plot(range(2, 11), davies_bouldin_scores, marker='o')
-# plt.xlabel('Number of Clusters (k)')
-# plt.ylabel('Davies-Bouldin Index')
-# plt.title('Davies-Bouldin Index Method')
-# plt.show()
+# Davies-Bouldin Index
+davies_bouldin_scores = []
+for k in range(2, 11):
+    kmeans = KMeans(n_clusters=k, random_state=42)
+    cluster_labels = kmeans.fit_predict(X[['Fresh', 'Grocery']])
+    davies_bouldin = davies_bouldin_score(X[['Fresh', 'Grocery']], cluster_labels)
+    davies_bouldin_scores.append(davies_bouldin)
+# Plot Davies-Bouldin scores
+plt.plot(range(2, 11), davies_bouldin_scores, marker='o')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Davies-Bouldin Index')
+plt.title('Davies-Bouldin Index Method')
+plt.show()
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -245,4 +246,58 @@ plt.ylabel('UMAP Dimension 2')
 plt.legend(title='Cluster', fontsize='large')
 
 # Show the plot
+plt.show()
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# k-means clustering
+
+#number of clusters
+k = 2
+kmeans = KMeans(n_clusters=k, random_state=42)
+clusters = kmeans.fit_predict(Xclust_scaled)
+
+Xclust_scaled['Cluster'] = clusters
+
+# Scatter plot
+plt.figure(figsize=(10, 6))
+
+# Create a dictionary to map cluster labels to colors
+cluster_colors = {
+    -1: '#800080',  # Purple
+    0: '#008080',   # Teal
+    1: '#008000',   # Green
+    2: '#FFD700',   # Gold
+    3: '#FF6347',   # Tomato
+    4: '#9932CC',   # DarkOrchid
+    5: '#87CEEB',   # SkyBlue
+    6: '#FFA07A',   # LightSalmon
+    7: '#20B2AA',   # LightSeaGreen
+    8: '#9370DB',   # MediumPurple
+    9: '#ADFF2F',   # GreenYellow
+}
+
+# Plotting scatter points
+sns.scatterplot(x='Fresh', y='Grocery', hue='Cluster', data=Xclust_scaled, palette=cluster_colors, s=60)
+plt.title('k-means Clustering')
+plt.xlabel('Fresh')
+plt.ylabel('Grocery')
+plt.legend(fontsize='large')
+
+# Plotting convex hulls around clusters
+for cluster_label in np.unique(clusters):
+    if cluster_label != -1:
+        cluster_points = Xclust_scaled.loc[Xclust_scaled['Cluster'] == cluster_label, ['Fresh', 'Grocery']].values
+        
+        if len(cluster_points) > 0:
+            hull = ConvexHull(cluster_points)
+            
+            # Get the color of the cluster from the dictionary
+            cluster_color = cluster_colors.get(cluster_label, 'black')
+            
+            # Plot filled convex hull with low opacity and darker outline
+            plt.fill(np.append(cluster_points[hull.vertices, 0], cluster_points[hull.vertices, 0][0]),
+                     np.append(cluster_points[hull.vertices, 1], cluster_points[hull.vertices, 1][0]),
+                     color=cluster_color, alpha=0.3, edgecolor=cluster_color, linewidth=2)
+
 plt.show()
