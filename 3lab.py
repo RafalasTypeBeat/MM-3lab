@@ -47,7 +47,7 @@ Xclust_scaled = pd.DataFrame(Xclust_scaled, columns=features2)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Create UMAP visualization with specified parameters
-reducer = umap.UMAP(n_neighbors=15, n_components=2, min_dist=0.1, spread=1.0, random_state=42)
+reducer = umap.UMAP(n_neighbors=30, n_components=2, min_dist=0.1, spread=3.0, random_state=42)
 embedding = reducer.fit_transform(X_scaled)
 X_scaled['Channel'] = df['Channel']
 
@@ -253,7 +253,7 @@ plt.show()
 
 def plot_kmeans_clusters(data, x_axis, y_axis, title, n_clusters=5, random_state=42):
     # KMeans clustering
-    kmeans = KMeans(n_clusters=n_clusters, random_state=random_state)
+    kmeans = KMeans(n_clusters=n_clusters, random_state=random_state, n_init=10)
     clusters = kmeans.fit_predict(data)
 
     data['Cluster'] = clusters
