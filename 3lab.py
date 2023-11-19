@@ -11,6 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from scipy.spatial import ConvexHull
 
+#aaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 # Read the CSV file into a DataFrame
 csv_file_path = 'C:/Users/Lenovo/Desktop/3lab masininis/Wholesale customers data.csv'
